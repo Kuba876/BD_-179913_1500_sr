@@ -10,5 +10,5 @@ INSERT INTO postac VALUES (2,'Drozd','ptak','2010-04-10',14);
 UPDATE postac SET wiek = 88 WHERE id_postaci=3;
 
 
-CREATE TABLE walizka (id_walizki int AUTO_INCREMENT, pojemnosc SMALLINT(99), kolor SET('rozowy','czerwony','teczowy','zolty'),id_wlasciciela int ON DELETE CASCADE, PRIMARY KEY (id_walizki) REFERENCES postac(id_postaci));
+CREATE TABLE walizka (id_walizki int AUTO_INCREMENT, pojemnosc SMALLINT, kolor SET('rozowy','czerwony','teczowy','zolty'),id_wlasciciela int, PRIMARY KEY (id_walizki),FOREIGN KEY(id_wlasciciela) REFERENCES postac(id_postaci) ON DELETE CASCADE);
 
