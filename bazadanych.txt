@@ -12,3 +12,20 @@ UPDATE postac SET wiek = 88 WHERE id_postaci=3;
 
 CREATE TABLE walizka (id_walizki int AUTO_INCREMENT, pojemnosc SMALLINT, kolor SET('rozowy','czerwony','teczowy','zolty'),id_wlasciciela int, PRIMARY KEY (id_walizki),FOREIGN KEY(id_wlasciciela) REFERENCES postac(id_postaci) ON DELETE CASCADE);
 
+
+ALTER TABLE walizka MODIFY COLUMN kolor enum('rozowy','czerwony','teczowy','zolty') default ('rozowy');
+INSERT INTO walizka VALUE (1, 2,DEFAULT, 1);
+INSERT INTO walizka VALUE (2, 2,DEFAULT, 1);
+
+INSERT INTO walizka VALUE (DEFAULT, 2,DEFAULT, 3);
+
+CREATE TABLE izba (adres_budynku INT, nazwa_izby INT, metraz INT UNSIGNED, wlasciciel INT, CONSTRAINT PK_izba PRIMARY KEY (adres_budynku, nazwa_izby),FOREIGN KEY (wlasciciel) REFERENCES postac(id_postaci) ON DELETE SET NULL);
+ ALTER TABLE izba MODIFY COLUMN nazwa_izby varchar(30);
+ALTER TABLE izba ADD COLUMN kolor varchar(20) DEFAULT 'czarny' AFTER metraz;
+INSERT INTO izba VALUES (1, 'spizarnia', 32, DEFAULT, 1);
+
+CREATE TABLE przetwory (id_przetworu INT PRIMARY KEY, rok_produkcji date DEFAULT '1654.01.01', id_wykonawcy INT, zawartosc varchar(20),
+ dodatek varchar(30) DEFAULT 'papryczka chili', id_konsumenta INT, FOREIGN KEY (id_konsumenta) REFERENCES postac(id_postaci));
+
+
+
