@@ -1,0 +1,67 @@
+CREATE TABLE postac (id_postaci int AUTO_INCREMENT, nazwa varchar(40), rodzaj SET('wiking','ptak','kobieta'), data_ur DATE, wiek int, PRIMARY KEY(id_postaci));
+
+INSERT INTO postac VALUES (1,'Bjorn','wiking','2000-09-20',44);
+INSERT INTO postac VALUES (2,'Drozd','ptak','2010-04-10',14);
+INSERT INTO postac VALUES (3,'Tesciowa','kobieta','1948-04-10',60);
+
+UPDATE postac SET wiek = 88 WHERE id_postaci=3;
+
+
+CREATE TABLE walizka (id_walizki int AUTO_INCREMENT, pojemnosc SMALLINT, kolor SET('rozowy','czerwony','teczowy','zolty'),id_wlasciciela int, PRIMARY KEY (id_walizki),FOREIGN KEY(id_wlasciciela) REFERENCES postac(id_postaci) ON DELETE CASCADE);
+
+
+ALTER TABLE walizka MODIFY COLUMN kolor enum('rozowy','czerwony','teczowy','zolty') default ('rozowy');
+INSERT INTO walizka VALUE (1, 2,DEFAULT, 1);
+INSERT INTO walizka VALUE (2, 2,DEFAULT, 1);
+
+INSERT INTO walizka VALUE (DEFAULT, 2,DEFAULT, 3);
+
+CREATE TABLE izba (adres_budynku INT, nazwa_izby INT, metraz INT UNSIGNED, wlasciciel INT, CONSTRAINT PK_izba PRIMARY KEY (adres_budynku, nazwa_izby),FOREIGN KEY (wlasciciel) REFERENCES postac(id_postaci) ON DELETE SET NULL);
+ALTER TABLE izba MODIFY COLUMN nazwa_izby varchar(30);
+ALTER TABLE izba ADD COLUMN kolor varchar(20) DEFAULT 'czarny' AFTER metraz;
+INSERT INTO izba VALUES (1, 'spizarnia', 32, DEFAULT, 1);
+
+CREATE TABLE przetwory (id_przetworu INT PRIMARY KEY, rok_produkcji date DEFAULT '1654.01.01', id_wykonawcy INT, zawartosc varchar(20),
+dodatek varchar(30) DEFAULT 'papryczka chili', id_konsumenta INT, FOREIGN KEY (id_konsumenta) REFERENCES postac(id_postaci));
+
+
+
+INSERT INTO przetwory VALUES (1, DEFAULT, 1, 'bigos','papryczka',3);
+
+INSERT INTO postac VALUES (DEFAULT, 'Brodaty', 1, '1400-01-05', 43);
+INSERT INTO postac VALUES (DEFAULT, 'Tim', 1, '1400-12-15', 43);
+INSERT INTO postac VALUES (DEFAULT, 'Tod', 1, '1413-08-08', 56);
+INSERT INTO postac VALUES (DEFAULT, 'Vjorn', 1, '1399-08-08', 32);
+INSERT INTO postac VALUES (DEFAULT, 'Tor', 1, '1405-08-08', 38);
+
+
+CREATE TABLE statek(nazwa_statku VARCHAR(35) PRIMARY KEY, rodzaj_statku enum('transportowy'), data_wodowania date, ladownosc int UNSIGNED);
+INSERT INTO statek VALUES ('Ragnar', 1, '1440-12-30',70);
+INSERT INTO statek VALUES ('Knar', 1, '1457-02-28',75);
+
+ALTER TABLE postac ADD funkcja VARCHAR(35);
+
+UPDATE postac SET funkcja = 'Kapitan' WHERE nazwa = 'Bjorn';
+
+
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\#poprawa bledow
+UPDATE postac SET data_ur = '1399-09-20' WHERE nazwa = 'Bjorn';
+UPDATE postac SET data_ur = '1429-04-10' WHERE id_postaci = 2;
+UPDATE postac SET data_ur = '1355-07-17' WHERE id_postaci = 3;
+/////////////////////////////////////////////////////////////////////////////////
+
+
+
+ALTER TABLE postac ADD COLUMN FK_statek VARCHAR(35);
+ALTER TABLE postac ADD FOREIGN KEY (FK_statek) REFERENCES statek(nazwa_statku);
+
+UPDATE postac SET FK_statek = 'Knar' WHERE id_postaci = 1;
+UPDATE postac SET FK_statek = 'Knar' WHERE id_postaci = 2;
+UPDATE postac SET FK_statek = 'Knar' WHERE id_postaci = 4;
+UPDATE postac SET FK_statek = 'Knar' WHERE id_postaci = 5;
+UPDATE postac SET FK_statek = 'Ragnar' WHERE id_postaci = 6;
+UPDATE postac SET FK_statek = 'Ragnar' WHERE id_postaci = 7;
+UPDATE postac SET FK_statek = 'Ragnar' WHERE id_postaci = 8;
+
+DELETE FROM izba WHERE nazwa_izby = 'spizarnia';
+DROP TABLE izba;
