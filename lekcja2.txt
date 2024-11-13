@@ -1,0 +1,31 @@
+DELETE FROM postac WHERE rodzaj = 'wiking' AND NOT(nazwa = 'Bjorn') ORDER BY wiek DESC LIMIT 2;
+
+/// zepsucie
+ALTER TABLE walizka DROP FOREIGN KEY walizka_ibfk_1;
+ALTER TABLE przetwory DROP FOREIGN KEY przetwory_ibfk_1;
+ALTER TABLE postac DROP COLUMN id_postaci;
+///naprawianie
+
+ALTER TABLE postac ADD COLUMN id_postaci INT;
+ALTER TABLE postac DROP COLUMN id_postaci;
+ ALTER TABLE postac ADD COLUMN id_postaci INT NOT NULL AUTO_INCREMENT FIRST, ADD PRIMARY KEY(id_postaci);
+ALTER TABLE postac MODIFY COLUMN id_postaci INT;
+ALTER TABLE postac DROP PRIMARY KEY;
+
+/// koniec naprawiania
+
+
+
+ ALTER TABLE postac add column pesel varchar(11);
+ALTER TABLE postac drop column pesel;
+
+
+ALTER TABLE postac add column pesel varchar(11);
+UPDATE postac SET pesel = id_postaci;
+UPDATE postac SET pesel = id_postaci+1000000000;
+ UPDATE postac SET pesel = id_postaci+10000000000;
+ ALTER TABLE postac ADD PRIMARY KEY(pesel);
+ALTER TABLE postac MODIFY rodzaj enum('wiking','ptak','kobieta','syrena');
+INSERT INTO postac VALUES (7, 'Gertruda Nieszczera', 'syrena', '1378-01-01', 65, NULL, 'Knar', 10000000007);
+2c zrobione
+
