@@ -27,5 +27,9 @@ UPDATE postac SET pesel = id_postaci+1000000000;
  ALTER TABLE postac ADD PRIMARY KEY(pesel);
 ALTER TABLE postac MODIFY rodzaj enum('wiking','ptak','kobieta','syrena');
 INSERT INTO postac VALUES (7, 'Gertruda Nieszczera', 'syrena', '1378-01-01', 65, NULL, 'Knar', 10000000007);
-2c zrobione
+UPDATE postac set FK_statek = 'Knar' where nazwa like '%a%';
+UPDATE statek set ladownosc = ladownosc*0.7 where year(data_wodowania)<1900;
+ALTER TABLE postac ADD CHECK (wiek <= 1000);
+alter table postac modify rodzaj enum('wiking','ptak','kobieta','syrena','waz') DEFAULT NULL;
+INSERT INTO postac VALUES(8, 'Loko', 'waz', '1207-06-10',236,NULL, NULL, '14078293105');
 
