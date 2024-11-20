@@ -32,4 +32,17 @@ UPDATE statek set ladownosc = ladownosc*0.7 where year(data_wodowania)<1900;
 ALTER TABLE postac ADD CHECK (wiek <= 1000);
 alter table postac modify rodzaj enum('wiking','ptak','kobieta','syrena','waz') DEFAULT NULL;
 INSERT INTO postac VALUES(8, 'Loko', 'waz', '1207-06-10',236,NULL, NULL, '14078293105');
+CREATE TABLE marynarze LIKE postac;
+INSERT INTO marynarze SELECT * FROM postac WHERE FK_statek IS NOT NULL;
+
+
+
+
+
+
+
+
+
+
+
 
