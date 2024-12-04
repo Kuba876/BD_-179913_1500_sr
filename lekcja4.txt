@@ -16,3 +16,4 @@ SELECT COUNT(DISTINCT nazwa), rodzaj FROM zasob WHERE ilosc > 1 GROUP BY rodzaj;
 SELECT COUNT(DISTINCT nazwa) AS g, rodzaj FROM zasob GROUP BY rodzaj HAVING g>1;
 SELECT k.nazwa,k.idKreatury, e.ilosc FROM kreatura k INNER JOIN ekwipunek e ON k.idKreatury = e.idKreatury;
 SELECT k.nazwa,k.idKreatury, e.ilosc, z.nazwa FROM kreatura k INNER JOIN ekwipunek e ON k.idKreatury = e.idKreatury INNER JOIN zasob z ON e.idZasobu = z.idZasobu;
+3c
