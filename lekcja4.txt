@@ -16,4 +16,18 @@ SELECT COUNT(DISTINCT nazwa), rodzaj FROM zasob WHERE ilosc > 1 GROUP BY rodzaj;
 SELECT COUNT(DISTINCT nazwa) AS g, rodzaj FROM zasob GROUP BY rodzaj HAVING g>1;
 SELECT k.nazwa,k.idKreatury, e.ilosc FROM kreatura k INNER JOIN ekwipunek e ON k.idKreatury = e.idKreatury;
 SELECT k.nazwa,k.idKreatury, e.ilosc, z.nazwa FROM kreatura k INNER JOIN ekwipunek e ON k.idKreatury = e.idKreatury INNER JOIN zasob z ON e.idZasobu = z.idZasobu;
-3c
+
+SELECT k.nazwa, k.idKreatury,e.idKreatury FROM kreatura k left join ekwipunek e on k.idKreatury = e.idKreatury WHERE e.idKreatury IS NULL;
+
+
+SELECt k.nazwa, e.idEkwipunku,z.nazwa from kreatura k INNER JOIN ekwipunek e ON k.idKreatury = e.idKreatury INNER JOIN zasob z ON e.idZasobu = z.idZasobu ORDER BY k.nazwa;
+SELECt k.nazwa, e.idEkwipunku,z.nazwa from kreatura k INNER JOIN ekwipunek e ON k.idKreatury = e.idKreatury INNER JOIN zasob z ON e.idZasobu = z.idZasobu WHERE YEAR(k.dataUr)BETWEEN 1670 and 1680 ORDER BY k.nazwa;--order by nie potrzebne ale lepiej wyglada
+
+SELECT k.nazwa, z.nazwa FROM kreatura k INNER JOIN ekwipunek e ON k.idKreatury = e.idKreatury INNER JOIN zasob z ON e.idZasobu = z.idZasobu WHERE z.rodzaj = 'jedzenie' LIMIT 5;
+SELECT concat(k.nazwa,"-",k1.nazwa)FROM kreatura k INNER JOIN kreatura k1 ON k.idKreatury=k1.idKreatury-5;
+
+
+SELECT k.rodzaj, SUM(e.ilosc*z.waga)/SUM(e.ilosc) FROM kreatura k INNER JOIN ekwipunek e ON k.idKreatury = e.idKreatury INNER JOIN zasob z ON e.idZasobu = z.idZasobu GROUP BY rodzaj;
+
+
+
