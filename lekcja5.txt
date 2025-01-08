@@ -1,0 +1,18 @@
+CREATE TABLE kreatura1 LIKE wikingowie.kreatura;
+INSERT INTO kreatura1 SELECT * from wikingowie.kreatura;
+
+
+
+CREATE TABLE uczestnicy1 LIKE wikingowie.uczestnicy;
+INSERT INTO uczestnicy1 SELECT * from wikingowie.uczestnicy;
+CREATE TABLE etapy_wyprawy SELECT * FROM wikingowie.etapy_wyprawy;
+CREATE TABLE wyprawa SELECT * FROM wikingowie.wyprawa;
+
+
+SELECT k.nazwa,u.id_uczestnika FROM kreatura1 k LEFT JOIN uczestnicy1 u ON k.idKreatury = u.id_uczestnika WHERE u.id_uczestnika IS NULL;
+
+
+SELECT w.nazwa, SUM(e.ilosc) from wyprawa w INNER JOIN uczestnicy1 u ON w.id_wyprawy = u.id_wyprawy INNER JOIN ekwipunek e ON u.id_uczestnika = e.idKreatury GROUP BY w.nazwa;
+
+
+SELECT w.nazwa,GROUP_CONCAT(k.nazwa) from wyprawa w INNER JOIN uczestnicy1 u ON w.id_wyprawy=u.id_wyprawy INNER JOIN kreatura1 k ON u.id_uczestnika = k.idKreatury GROUP BY w.nazwa;
